@@ -17,6 +17,9 @@
 		0132C590249FE7F500CAC505 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C58F249FE7F500CAC505 /* MapView.swift */; };
 		0132C592249FF2C800CAC505 /* StudentResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C591249FF2C800CAC505 /* StudentResults.swift */; };
 		0132C59424A0C20800CAC505 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C59324A0C20800CAC505 /* ListView.swift */; };
+		01A3C11324A157ED00B4ACC2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3C11224A157ED00B4ACC2 /* LoginView.swift */; };
+		01A6D10624A28100001E1101 /* AppScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10524A28100001E1101 /* AppScenes.swift */; };
+		01A6D10924A28639001E1101 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10824A28639001E1101 /* Endpoints.swift */; };
 		01CD4A5D24A13535004B55F6 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A5C24A13535004B55F6 /* Store.swift */; };
 		01CD4A5F24A135B6004B55F6 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A5E24A135B6004B55F6 /* Reducer.swift */; };
 		01CD4A6124A138F3004B55F6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A6024A138F3004B55F6 /* AppState.swift */; };
@@ -39,6 +42,9 @@
 		0132C58F249FE7F500CAC505 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		0132C591249FF2C800CAC505 /* StudentResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentResults.swift; sourceTree = "<group>"; };
 		0132C59324A0C20800CAC505 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		01A3C11224A157ED00B4ACC2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		01A6D10524A28100001E1101 /* AppScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScenes.swift; sourceTree = "<group>"; };
+		01A6D10824A28639001E1101 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		01CD4A5C24A13535004B55F6 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		01CD4A5E24A135B6004B55F6 /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		01CD4A6024A138F3004B55F6 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -110,7 +116,9 @@
 		0132C58B249FE49600CAC505 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				01A6D10824A28639001E1101 /* Endpoints.swift */,
 				0132C58C249FE4A900CAC505 /* StudentLocation.swift */,
+				01A6D10524A28100001E1101 /* AppScenes.swift */,
 				0132C591249FF2C800CAC505 /* StudentResults.swift */,
 				01CD4A6624A13C7A004B55F6 /* MapService.swift */,
 				01CD4A6824A13DE1004B55F6 /* MockMapService.swift */,
@@ -121,11 +129,20 @@
 		0132C58E249FE7CF00CAC505 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				01A6D10724A2844C001E1101 /* Modifiers */,
 				0132C57A249FE33A00CAC505 /* ContentView.swift */,
 				0132C58F249FE7F500CAC505 /* MapView.swift */,
 				0132C59324A0C20800CAC505 /* ListView.swift */,
+				01A3C11224A157ED00B4ACC2 /* LoginView.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		01A6D10724A2844C001E1101 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		01CD4A5B24A13519004B55F6 /* Redux */ = {
@@ -213,7 +230,9 @@
 			files = (
 				01CD4A6924A13DE1004B55F6 /* MockMapService.swift in Sources */,
 				0132C58D249FE4A900CAC505 /* StudentLocation.swift in Sources */,
+				01A6D10924A28639001E1101 /* Endpoints.swift in Sources */,
 				01CD4A6124A138F3004B55F6 /* AppState.swift in Sources */,
+				01A3C11324A157ED00B4ACC2 /* LoginView.swift in Sources */,
 				0132C577249FE33A00CAC505 /* AppDelegate.swift in Sources */,
 				0132C592249FF2C800CAC505 /* StudentResults.swift in Sources */,
 				01CD4A6324A1394D004B55F6 /* AppAction.swift in Sources */,
@@ -222,6 +241,7 @@
 				0132C59424A0C20800CAC505 /* ListView.swift in Sources */,
 				01CD4A5F24A135B6004B55F6 /* Reducer.swift in Sources */,
 				01CD4A6724A13C7A004B55F6 /* MapService.swift in Sources */,
+				01A6D10624A28100001E1101 /* AppScenes.swift in Sources */,
 				0132C590249FE7F500CAC505 /* MapView.swift in Sources */,
 				0132C579249FE33A00CAC505 /* SceneDelegate.swift in Sources */,
 				0132C57B249FE33A00CAC505 /* ContentView.swift in Sources */,

@@ -10,5 +10,6 @@ import Foundation
 import MapKit
 
 struct AppState {
+    var currentScene: AppScenes = .login
     var locations = [StudentLocation]()
 }

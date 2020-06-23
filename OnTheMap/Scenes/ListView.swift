@@ -28,14 +28,16 @@ struct ListCell: View {
     var body: some View {
         HStack {
             Image(systemName: "pin.fill")
+                .foregroundColor(.red)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 Text("\(studentLocation.firstName) \(studentLocation.lastName)")
                     .font(.headline)
                     .fontWeight(.semibold)
                 
                 Text(studentLocation.mediaURL)
                     .font(.subheadline)
+                    .foregroundColor(.secondary)
 
             }
         }

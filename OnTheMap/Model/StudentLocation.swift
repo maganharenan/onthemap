@@ -35,31 +35,15 @@ struct StudentLocation: Codable, Equatable, Hashable {
     }
 }
 
-enum Endpoints {
-    static let baseURL = "https://onthemap-api.udacity.com/v1"
-    
-    case getStudentLocation
-    
-    var stringValue: String {
-        switch self {
-        case .getStudentLocation: return Endpoints.baseURL + "/StudentLocation"
-        }
-    }
-    
-    var url: URL {
-        return URL(string: stringValue)!
-    }
-}
-
 func getStudentLocation(completion: @escaping (StudentResults?, Error?) -> Void) {
     let task = URLSession.shared.dataTask(with: Endpoints.getStudentLocation.url) { (data, response, error) in
         guard let data = data else {
             completion(nil, error)
             return
         }
-        
+
         let decoder = JSONDecoder()
-  
+
         do {
             let objectResponse = try decoder.decode(StudentResults.self, from: data)
             completion(objectResponse, nil)
@@ -68,15 +52,6 @@ func getStudentLocation(completion: @escaping (StudentResults?, Error?) -> Void)
         }
     }
     task.resume()
-}
-
-func handleStudentLocation(studentLocation: StudentResults?, error: Error?) -> [StudentLocation] {
-    if let studentLocation = studentLocation {
-        return studentLocation.results
-    } else {
-        print(error!)
-        return []
-    }
 }
 
 

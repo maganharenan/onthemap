@@ -12,23 +12,34 @@ struct ContentView: View {
     @EnvironmentObject var store: Store<AppState, AppAction>
     
     var body: some View {
-        TabView {
-            ListView()
-            .tabItem {
-                Image(systemName: "list.bullet")
-                Text("List")
+        VStack {
+            if store.state.currentScene == .mapService {
+                NavigationView {
+                TabView {
+                    MapView()
+                        .tabItem {
+                            Image(systemName: "mappin.and.ellipse")
+                            Text("Map")
+                    }
+                    ListView()
+                        .tabItem {
+                            Image(systemName: "list.bullet")
+                            Text("List")
+                    }
+                }
+                .navigationBarItems(leading:
+                    Button(action: {
+                    
+                    }, label: {
+                        Text("LOGOUT")
+                    })
+                )
+                    .navigationBarTitle("On the Map", displayMode: .inline)
             }
-            MapView()
-            .tabItem {
-                Image(systemName: "list.bullet")
-                Text("List")
+                .navigationViewStyle(StackNavigationViewStyle())
+            } else {
+                LoginView()
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 class MockMapService: MapService {
-
+    var currentScene: AppScenes = .login
+    
     func fetchStudentLocation() -> [StudentLocation] {
         var studentLocation = [StudentLocation]()
         let task = DispatchGroup()
@@ -19,15 +21,17 @@ class MockMapService: MapService {
             if let response = response {
                 studentLocation = response.results
                 task.leave()
-                print("task")
             } else {
                 print(error!)
                 task.leave()
             }
         }
         task.wait()
-        
-        print("acabou")
+
         return studentLocation
+    }
+    
+    func changeScene(scene: AppScenes) {
+        currentScene = scene
     }
 }

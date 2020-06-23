@@ -10,4 +10,10 @@ import Foundation
 
 enum AppAction {
     case reload
+    case loginActions(LoginAction)
+}
+
+enum LoginAction {
+    case signIn
+    case signUp
 }

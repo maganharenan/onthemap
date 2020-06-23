@@ -10,5 +10,7 @@ import Foundation
 import MapKit
 
 protocol MapService {
+    var currentScene: AppScenes { get }
     func fetchStudentLocation() -> [StudentLocation]
+    func changeScene(scene: AppScenes)
 }
