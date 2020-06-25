@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var store: Store<AppState, AppAction>
+    @State var showInformationPostingView = false
     
     var body: some View {
         VStack {
@@ -27,13 +28,36 @@ struct ContentView: View {
                             Text("List")
                     }
                 }
-                .navigationBarItems(leading:
+                .navigationBarItems(
+                    leading:
                     Button(action: {
-                    
+                        self.store.send(.loginActions(.logOut))
                     }, label: {
-                        Text("LOGOUT")
-                    })
+                        Image("logout")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 20)
+                            .frame(width: 44, height: 44)
+                    }),
+                    trailing:
+                    HStack(spacing: 16) {
+                        Button(action: {
+                            self.store.send(.reload)
+                        }, label: {
+                            Image(systemName: "arrow.clockwise")
+                                .frame(width: 44, height: 44)
+                        })
+                        
+                        Button(action: {
+                            self.showInformationPostingView.toggle()
+                        }, label: {
+                            Image(systemName: "plus")
+                                .frame(width: 44, height: 44)
+                        })
+                            .sheet(isPresented: $showInformationPostingView) { InformationPostingView() }
+                    }
                 )
+     
                     .navigationBarTitle("On the Map", displayMode: .inline)
             }
                 .navigationViewStyle(StackNavigationViewStyle())

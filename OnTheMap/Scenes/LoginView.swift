@@ -21,21 +21,26 @@ struct LoginView: View {
             
             VStack(spacing: 5) {
                 
-                Image(systemName: "mappin.and.ellipse")
-                    .font(.system(size: 100, weight: .thin))
+                Spacer()
+                
+                Image("logo")
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 100)
+                    .foregroundColor(Color("LogInLogo"))
                     .padding(.vertical, 30)
-                    .padding(.top, 70)
                 
                 Text("ON THE MAP")
                     .font(.system(size: 20, weight: .thin, design: .rounded))
                     .tracking(15)
                     .padding(.leading, 15)
+                    .padding(.bottom, 50)
                 
                 TextField("Email", text: $email)
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 300)
-                    .padding(.top, 40)
                 
                 if emailError { Text("Enter a valid email adress!").foregroundColor(.red).font(.footnote) }
                 
@@ -44,17 +49,11 @@ struct LoginView: View {
                     .frame(width: 300)
                 
                 Button(action: {
-                    self.store.send(.loginActions(.signIn))
+                    self.store.send(.loginActions(.signIn(self.email, self.password)))
                 }, label: {
                     Text("LOGIN")
                         .tracking(7)
-                        .padding(.leading, 15)
-                        .foregroundColor(.white)
-                        .frame(width: 300, height: 30)
-                        .background(Color(#colorLiteral(red: 0.3111993667, green: 0.6907969998, blue: 1, alpha: 1)))
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 5, y: 7)
-                        .shadow(color: Color.white.opacity(0.2), radius: 5, x: -5, y: -7)
+                        .modifier(LoginButtonModifier())
                 })
                     .padding(.top, 30)
                 

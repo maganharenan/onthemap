@@ -34,24 +34,3 @@ struct StudentLocation: Codable, Equatable, Hashable {
         case updatedAt
     }
 }
-
-func getStudentLocation(completion: @escaping (StudentResults?, Error?) -> Void) {
-    let task = URLSession.shared.dataTask(with: Endpoints.getStudentLocation.url) { (data, response, error) in
-        guard let data = data else {
-            completion(nil, error)
-            return
-        }
-
-        let decoder = JSONDecoder()
-
-        do {
-            let objectResponse = try decoder.decode(StudentResults.self, from: data)
-            completion(objectResponse, nil)
-        } catch {
-            completion(nil, error)
-        }
-    }
-    task.resume()
-}
-
-

@@ -11,13 +11,14 @@ import Foundation
 extension Reducer where State == AppState, Action == AppAction {
     static func appReducer() -> Reducer {
         let mapService: MapService = MockMapService()
+        let clientService: ClientService = MockClientService()
         
         return Reducer { state, action in
             switch action {
             case .reload:
                 break
             case .loginActions(let action):
-                handleLoginActions(action, mapService: mapService)
+                handleLoginActions(action, mapService: mapService, clientService: clientService)
             }
             
             return Reducer.sync { state in
@@ -27,12 +28,21 @@ extension Reducer where State == AppState, Action == AppAction {
         }
     }
     
-    private static func handleLoginActions(_ action: LoginAction, mapService: MapService) {
+    private static func handleLoginActions(_ action: LoginAction, mapService: MapService, clientService: ClientService) {
         switch action {
-        case .signIn:
+        case let .signIn(username, password):
+            clientService.postSession(username: username, password: password) { (response, error) in
+                if let response = response {
+                    print(response)
+                } else {
+                    print(error!)
+                }
+            }
             mapService.changeScene(scene: .mapService)
-        default:
+        case .signUp:
             break
+        case .logOut:
+            mapService.changeScene(scene: .login)
         }
         
     }

@@ -14,6 +14,7 @@ enum AppAction {
 }
 
 enum LoginAction {
-    case signIn
+    case signIn(String, String)
     case signUp
+    case logOut
 }

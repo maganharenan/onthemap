@@ -2,8 +2,8 @@
 //  Endpoints.swift
 //  OnTheMap
 //
-//  Created by Nuxen on 23/06/20.
-//  Copyright © 2020 renan maganha. All rights reserved.
+//  Created by Renan Maganha on 23/06/20.
+//  Copyright © 2020 Renan Maganha. All rights reserved.
 //
 
 import Foundation
@@ -13,9 +13,12 @@ enum Endpoints {
     
     case getStudentLocation
     
+    case postSession
+    
     var stringValue: String {
         switch self {
         case .getStudentLocation: return Endpoints.baseURL + "/StudentLocation"
+        case .postSession: return Endpoints.baseURL + "/session"
         }
     }
     

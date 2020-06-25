@@ -27,7 +27,11 @@ struct ListCell: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "pin.fill")
+            Image("pin")
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 34)
                 .foregroundColor(.red)
             
             VStack(alignment: .leading, spacing: 10) {
