@@ -16,7 +16,7 @@ struct PostSessionResponse: Codable {
         let registered: Bool
         let key: String
     }
-
+    
     struct Session: Codable {
         let id: String
         let expiration: String

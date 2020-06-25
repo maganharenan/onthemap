@@ -22,8 +22,12 @@ extension Reducer where State == AppState, Action == AppAction {
             }
             
             return Reducer.sync { state in
-                state.locations = mapService.fetchStudentLocation()
-                state.currentScene = mapService.currentScene
+                state.locations     = mapService.fetchStudentLocation()
+                state.currentScene  = mapService.currentScene
+                state.registered    = clientService.registered!
+                state.key           = clientService.key!
+                state.id            = clientService.id!
+                state.expiration    = clientService.expiration!
             }
         }
     }
@@ -38,12 +42,22 @@ extension Reducer where State == AppState, Action == AppAction {
                     print(error!)
                 }
             }
-            mapService.changeScene(scene: .mapService)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                if clientService.id != ""{
+                    handleSegue(mapService)
+                }
+            }
+            
         case .signUp:
             break
         case .logOut:
+            clientService.deleteSession()
             mapService.changeScene(scene: .login)
         }
         
+    }
+    
+    private static func handleSegue(_ mapService: MapService) {
+        mapService.changeScene(scene: .mapService)
     }
 }

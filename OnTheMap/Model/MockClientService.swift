@@ -38,10 +38,52 @@ class MockClientService: ClientService {
             do {
                 let range = 5..<data.count
                 let newData = data.subdata(in: range)
+                //print(String(data: newData, encoding: .utf8)!)
                 let responseObject = try decoder.decode(PostSessionResponse.self, from: newData)
+                
+                self.registered = responseObject.account.registered
+                self.key        = responseObject.account.key
+                self.id         = responseObject.session.id
+                self.expiration = responseObject.session.expiration
+                
                 completion(responseObject, nil)
             } catch {
                 completion(nil, error)
+            }
+        }
+        task.resume()
+    }
+    
+    func deleteSession() {
+        var request = URLRequest(url: Endpoints.postSession.url)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+          if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+          request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let range = 5..<data.count
+                let newData = data.subdata(in: range)
+                let objectResponse = try decoder.decode(DeleteSessionResponse.self, from: newData)
+                print("deslogou")
+            } catch {
+                print(error)
             }
         }
         task.resume()

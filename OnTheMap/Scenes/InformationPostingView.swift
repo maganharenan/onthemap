@@ -2,8 +2,8 @@
 //  InformationPostingView.swift
 //  OnTheMap
 //
-//  Created by Nuxen on 24/06/20.
-//  Copyright © 2020 renan maganha. All rights reserved.
+//  Created by Renan Maganha on 24/06/20.
+//  Copyright © 2020 Renan Maganha. All rights reserved.
 //
 
 import SwiftUI

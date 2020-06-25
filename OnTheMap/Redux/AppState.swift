@@ -11,5 +11,12 @@ import MapKit
 
 struct AppState {
     var currentScene: AppScenes = .login
+    
+    ///Auth
+    var registered = false
+    var key = ""
+    var id = ""
+    var expiration = ""
+    
     var locations = [StudentLocation]()
 }

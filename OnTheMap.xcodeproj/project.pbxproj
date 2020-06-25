@@ -26,6 +26,7 @@
 		01A6D10624A28100001E1101 /* AppScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10524A28100001E1101 /* AppScenes.swift */; };
 		01A6D10924A28639001E1101 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10824A28639001E1101 /* Endpoints.swift */; };
 		01A6D10D24A2B7A9001E1101 /* LoginModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10C24A2B7A9001E1101 /* LoginModifiers.swift */; };
+		01B6478B24A565C500F4D4B7 /* DeleteSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6478A24A565C500F4D4B7 /* DeleteSessionResponse.swift */; };
 		01CD4A5D24A13535004B55F6 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A5C24A13535004B55F6 /* Store.swift */; };
 		01CD4A5F24A135B6004B55F6 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A5E24A135B6004B55F6 /* Reducer.swift */; };
 		01CD4A6124A138F3004B55F6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A6024A138F3004B55F6 /* AppState.swift */; };
@@ -57,6 +58,7 @@
 		01A6D10524A28100001E1101 /* AppScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScenes.swift; sourceTree = "<group>"; };
 		01A6D10824A28639001E1101 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		01A6D10C24A2B7A9001E1101 /* LoginModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModifiers.swift; sourceTree = "<group>"; };
+		01B6478A24A565C500F4D4B7 /* DeleteSessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSessionResponse.swift; sourceTree = "<group>"; };
 		01CD4A5C24A13535004B55F6 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		01CD4A5E24A135B6004B55F6 /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		01CD4A6024A138F3004B55F6 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -129,9 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				01A6D10824A28639001E1101 /* Endpoints.swift */,
+				01B6478924A563EB00F4D4B7 /* ClientService */,
 				0132C58C249FE4A900CAC505 /* StudentLocation.swift */,
-				017FEB9424A410BA00B721EB /* PostSession.swift */,
-				017FEB9624A4140800B721EB /* PostSessionResponse.swift */,
 				01A6D10524A28100001E1101 /* AppScenes.swift */,
 				0132C591249FF2C800CAC505 /* StudentResults.swift */,
 				01CD4A6624A13C7A004B55F6 /* MapService.swift */,
@@ -161,6 +162,16 @@
 				01A6D10C24A2B7A9001E1101 /* LoginModifiers.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		01B6478924A563EB00F4D4B7 /* ClientService */ = {
+			isa = PBXGroup;
+			children = (
+				017FEB9424A410BA00B721EB /* PostSession.swift */,
+				017FEB9624A4140800B721EB /* PostSessionResponse.swift */,
+				01B6478A24A565C500F4D4B7 /* DeleteSessionResponse.swift */,
+			);
+			path = ClientService;
 			sourceTree = "<group>";
 		};
 		01CD4A5B24A13519004B55F6 /* Redux */ = {
@@ -258,6 +269,7 @@
 				0132C592249FF2C800CAC505 /* StudentResults.swift in Sources */,
 				017FEB9124A3FE4900B721EB /* InformationPostingView.swift in Sources */,
 				01CD4A6324A1394D004B55F6 /* AppAction.swift in Sources */,
+				01B6478B24A565C500F4D4B7 /* DeleteSessionResponse.swift in Sources */,
 				017FEB9724A4140800B721EB /* PostSessionResponse.swift in Sources */,
 				017FEB9524A410BA00B721EB /* PostSession.swift in Sources */,
 				01CD4A5D24A13535004B55F6 /* Store.swift in Sources */,

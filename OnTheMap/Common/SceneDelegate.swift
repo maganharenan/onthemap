@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let store = Store(initialState: AppState(), reducer: Reducer.appReducer())
-        store.send(.reload)
         let contentView = ContentView()
             .environmentObject(store)
 
