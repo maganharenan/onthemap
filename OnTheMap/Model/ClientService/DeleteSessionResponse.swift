@@ -2,8 +2,8 @@
 //  DeleteSessionResponse.swift
 //  OnTheMap
 //
-//  Created by Nuxen on 25/06/20.
-//  Copyright © 2020 renan maganha. All rights reserved.
+//  Created by Renan Maganha on 25/06/20.
+//  Copyright © 2020 Renan Maganha. All rights reserved.
 //
 
 import Foundation

@@ -12,8 +12,8 @@ struct LoginView: View {
     @EnvironmentObject var store: Store<AppState, AppAction>
     
     @State var email = ""
-    @State var emailError = true
     @State var password = ""
+    @State var isLoading = false
 
     var body: some View {
         ZStack {
@@ -42,14 +42,15 @@ struct LoginView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 300)
                 
-                if emailError { Text("Enter a valid email adress!").foregroundColor(.red).font(.footnote) }
-                
                 TextField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 300)
                 
                 Button(action: {
-                    self.store.send(.loginActions(.signIn(self.email, self.password)))
+                    DispatchQueue.main.async {
+                        self.isLoading.toggle()
+                        self.store.send(.loginActions(.signIn(self.email, self.password)))
+                    }
                 }, label: {
                     Text("LOGIN")
                         .tracking(7)
@@ -58,6 +59,10 @@ struct LoginView: View {
                     .padding(.top, 30)
                 
                 Spacer()
+            }
+            
+            if isLoading {
+                LottieView(fileName: "locationPin").frame(width: 150, height: 150).animation(Animation.linear.repeatForever())
             }
             
         }

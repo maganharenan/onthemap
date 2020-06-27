@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,11 +17,12 @@
 		0132C590249FE7F500CAC505 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C58F249FE7F500CAC505 /* MapView.swift */; };
 		0132C592249FF2C800CAC505 /* StudentResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C591249FF2C800CAC505 /* StudentResults.swift */; };
 		0132C59424A0C20800CAC505 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132C59324A0C20800CAC505 /* ListView.swift */; };
+		013AC85124A7FA3D00648C23 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 013AC85024A7FA3D00648C23 /* Lottie */; };
+		013AC85824A7FCBF00648C23 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013AC85724A7FCBF00648C23 /* LottieView.swift */; };
+		013AC85A24A7FD2B00648C23 /* locationPin.json in Resources */ = {isa = PBXBuildFile; fileRef = 013AC85924A7FD2B00648C23 /* locationPin.json */; };
 		017FEB9124A3FE4900B721EB /* InformationPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FEB9024A3FE4900B721EB /* InformationPostingView.swift */; };
-		017FEB9324A408F500B721EB /* MockClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FEB9224A408F500B721EB /* MockClientService.swift */; };
 		017FEB9524A410BA00B721EB /* PostSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FEB9424A410BA00B721EB /* PostSession.swift */; };
 		017FEB9724A4140800B721EB /* PostSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FEB9624A4140800B721EB /* PostSessionResponse.swift */; };
-		017FEB9924A4161A00B721EB /* ClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FEB9824A4161A00B721EB /* ClientService.swift */; };
 		01A3C11324A157ED00B4ACC2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3C11224A157ED00B4ACC2 /* LoginView.swift */; };
 		01A6D10624A28100001E1101 /* AppScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10524A28100001E1101 /* AppScenes.swift */; };
 		01A6D10924A28639001E1101 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6D10824A28639001E1101 /* Endpoints.swift */; };
@@ -49,11 +50,11 @@
 		0132C58F249FE7F500CAC505 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		0132C591249FF2C800CAC505 /* StudentResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentResults.swift; sourceTree = "<group>"; };
 		0132C59324A0C20800CAC505 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		013AC85724A7FCBF00648C23 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		013AC85924A7FD2B00648C23 /* locationPin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locationPin.json; sourceTree = "<group>"; };
 		017FEB9024A3FE4900B721EB /* InformationPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPostingView.swift; sourceTree = "<group>"; };
-		017FEB9224A408F500B721EB /* MockClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClientService.swift; sourceTree = "<group>"; };
 		017FEB9424A410BA00B721EB /* PostSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSession.swift; sourceTree = "<group>"; };
 		017FEB9624A4140800B721EB /* PostSessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSessionResponse.swift; sourceTree = "<group>"; };
-		017FEB9824A4161A00B721EB /* ClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientService.swift; sourceTree = "<group>"; };
 		01A3C11224A157ED00B4ACC2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01A6D10524A28100001E1101 /* AppScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScenes.swift; sourceTree = "<group>"; };
 		01A6D10824A28639001E1101 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				013AC85124A7FA3D00648C23 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,15 +132,12 @@
 		0132C58B249FE49600CAC505 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				01A6D10824A28639001E1101 /* Endpoints.swift */,
-				01B6478924A563EB00F4D4B7 /* ClientService */,
-				0132C58C249FE4A900CAC505 /* StudentLocation.swift */,
 				01A6D10524A28100001E1101 /* AppScenes.swift */,
-				0132C591249FF2C800CAC505 /* StudentResults.swift */,
+				01A6D10824A28639001E1101 /* Endpoints.swift */,
+				013AC84C24A75D9000648C23 /* MapService */,
+				01B6478924A563EB00F4D4B7 /* ClientService */,
 				01CD4A6624A13C7A004B55F6 /* MapService.swift */,
 				01CD4A6824A13DE1004B55F6 /* MockMapService.swift */,
-				017FEB9824A4161A00B721EB /* ClientService.swift */,
-				017FEB9224A408F500B721EB /* MockClientService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -146,14 +145,33 @@
 		0132C58E249FE7CF00CAC505 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				013AC85424A7FC6B00648C23 /* Lottie */,
 				01A6D10724A2844C001E1101 /* Modifiers */,
 				0132C57A249FE33A00CAC505 /* ContentView.swift */,
 				0132C58F249FE7F500CAC505 /* MapView.swift */,
 				0132C59324A0C20800CAC505 /* ListView.swift */,
 				01A3C11224A157ED00B4ACC2 /* LoginView.swift */,
 				017FEB9024A3FE4900B721EB /* InformationPostingView.swift */,
+				013AC85724A7FCBF00648C23 /* LottieView.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		013AC84C24A75D9000648C23 /* MapService */ = {
+			isa = PBXGroup;
+			children = (
+				0132C58C249FE4A900CAC505 /* StudentLocation.swift */,
+				0132C591249FF2C800CAC505 /* StudentResults.swift */,
+			);
+			path = MapService;
+			sourceTree = "<group>";
+		};
+		013AC85424A7FC6B00648C23 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				013AC85924A7FD2B00648C23 /* locationPin.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		01A6D10724A2844C001E1101 /* Modifiers */ = {
@@ -202,6 +220,9 @@
 			dependencies = (
 			);
 			name = OnTheMap;
+			packageProductDependencies = (
+				013AC85024A7FA3D00648C23 /* Lottie */,
+			);
 			productName = OnTheMap;
 			productReference = 0132C573249FE33A00CAC505 /* OnTheMap.app */;
 			productType = "com.apple.product-type.application";
@@ -230,6 +251,9 @@
 				Base,
 			);
 			mainGroup = 0132C56A249FE33A00CAC505;
+			packageReferences = (
+				013AC84F24A7FA3D00648C23 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 0132C574249FE33A00CAC505 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -245,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0132C583249FE34100CAC505 /* LaunchScreen.storyboard in Resources */,
+				013AC85A24A7FD2B00648C23 /* locationPin.json in Resources */,
 				0132C580249FE34100CAC505 /* Preview Assets.xcassets in Resources */,
 				0132C57D249FE34100CAC505 /* Assets.xcassets in Resources */,
 			);
@@ -257,7 +282,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				017FEB9924A4161A00B721EB /* ClientService.swift in Sources */,
 				01A6D10D24A2B7A9001E1101 /* LoginModifiers.swift in Sources */,
 				01CD4A6924A13DE1004B55F6 /* MockMapService.swift in Sources */,
 				0132C58D249FE4A900CAC505 /* StudentLocation.swift in Sources */,
@@ -265,7 +289,6 @@
 				01CD4A6124A138F3004B55F6 /* AppState.swift in Sources */,
 				01A3C11324A157ED00B4ACC2 /* LoginView.swift in Sources */,
 				0132C577249FE33A00CAC505 /* AppDelegate.swift in Sources */,
-				017FEB9324A408F500B721EB /* MockClientService.swift in Sources */,
 				0132C592249FF2C800CAC505 /* StudentResults.swift in Sources */,
 				017FEB9124A3FE4900B721EB /* InformationPostingView.swift in Sources */,
 				01CD4A6324A1394D004B55F6 /* AppAction.swift in Sources */,
@@ -279,6 +302,7 @@
 				01CD4A6724A13C7A004B55F6 /* MapService.swift in Sources */,
 				01A6D10624A28100001E1101 /* AppScenes.swift in Sources */,
 				0132C590249FE7F500CAC505 /* MapView.swift in Sources */,
+				013AC85824A7FCBF00648C23 /* LottieView.swift in Sources */,
 				0132C579249FE33A00CAC505 /* SceneDelegate.swift in Sources */,
 				0132C57B249FE33A00CAC505 /* ContentView.swift in Sources */,
 			);
@@ -474,6 +498,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		013AC84F24A7FA3D00648C23 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		013AC85024A7FA3D00648C23 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 013AC84F24A7FA3D00648C23 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0132C56B249FE33A00CAC505 /* Project object */;
 }

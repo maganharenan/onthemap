@@ -33,6 +33,10 @@ struct MapView: UIViewRepresentable {
         }
         
         uiView.addAnnotations(annotations)
+        
+        if store.state.locations == [] {
+            store.send(.reload)
+        }
 
     }
 }

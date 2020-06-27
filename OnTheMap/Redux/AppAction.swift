@@ -11,6 +11,7 @@ import Foundation
 enum AppAction {
     case reload
     case loginActions(LoginAction)
+    case changeScene(AppScenes)
 }
 
 enum LoginAction {
