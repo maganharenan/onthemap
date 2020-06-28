@@ -11,6 +11,8 @@ import MapKit
 
 struct AppState {
     var currentScene: AppScenes = .login
+    var alertMessage = ""
+    var showAlert: Bool = false
     
     ///Auth
     var registered = false

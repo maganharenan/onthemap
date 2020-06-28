@@ -19,7 +19,7 @@ struct LoginView: View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color("GradientColorTop"), Color("GradientColorBottom")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 5) {
+            VStack(spacing: 16) {
                 
                 Spacer()
                 
@@ -49,7 +49,9 @@ struct LoginView: View {
                 Button(action: {
                     DispatchQueue.main.async {
                         self.isLoading.toggle()
-                        self.store.send(.loginActions(.signIn(self.email, self.password)))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                            self.store.send(.loginActions(.signIn(self.email, self.password)))
+                        }
                     }
                 }, label: {
                     Text("LOGIN")
@@ -57,14 +59,27 @@ struct LoginView: View {
                         .modifier(LoginButtonModifier())
                 })
                     .padding(.top, 30)
+                    .alert(isPresented: .constant(store.state.showAlert)) {
+                        Alert(title: Text("Login Failure"), message: Text("\(store.state.alertMessage)"), dismissButton: .default(Text("Ok")))
+                    }
+                
+                HStack {
+                    Text("Don't have and account?")
+                    
+                    Button(action: {
+                        self.store.send(.loginActions(.signUp))
+                    }, label: {
+                        Text("Sign Up")
+                    })
+                }
+                .font(.system(size: 13, weight: .thin, design: .rounded))
                 
                 Spacer()
             }
             
-            if isLoading {
-                LottieView(fileName: "locationPin").frame(width: 150, height: 150).animation(Animation.linear.repeatForever())
+            if isLoading && !store.state.showAlert {
+                LoadingView()
             }
-            
         }
     }
 }

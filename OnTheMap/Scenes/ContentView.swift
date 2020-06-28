@@ -31,7 +31,9 @@ struct ContentView: View {
                 .navigationBarItems(
                     leading:
                     Button(action: {
-                        self.store.send(.loginActions(.logOut))
+                        DispatchQueue.main.async {
+                            self.store.send(.loginActions(.logOut))
+                        }
                     }, label: {
                         Image("logout")
                             .resizable()

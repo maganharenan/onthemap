@@ -18,12 +18,12 @@ extension Reducer where State == AppState, Action == AppAction {
                 break
             case .loginActions(let action):
                 handleLoginActions(action, mapService: mapService)
-            case .changeScene(let scene):
-                break
             }
             
             return Reducer.sync { state in
                 state.currentScene  = mapService.currentScene
+                state.alertMessage  = mapService.alertMessage
+                state.showAlert     = mapService.showAlert
                 state.locations     = mapService.fetchStudentLocation()
                 state.registered    = mapService.registered!
                 state.key           = mapService.key!
@@ -40,7 +40,7 @@ extension Reducer where State == AppState, Action == AppAction {
         case .signUp:
             break
         case .logOut:
-            mapService.deleteSession()
+            mapService.handleDeleteSession()
         }
         
     }

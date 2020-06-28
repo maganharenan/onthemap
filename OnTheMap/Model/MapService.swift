@@ -10,16 +10,24 @@ import Foundation
 import MapKit
 
 protocol MapService {
+    //MARK: - Properties
+    //Defines wich of the app scenes will be displayed to the user
     var currentScene: AppScenes { get }
+    var alertMessage: String { get }
+    var showAlert: Bool { get }
     
+    //Stores the user session informations
     var registered: Bool? { get }
     var key: String? { get }
     var id: String? { get }
     var expiration: String? { get }
     
-    func fetchStudentLocation() -> [StudentLocation]
-    func changeScene(scene: AppScenes)
-    func handlePostSession(username: String, password: String)
+    //MARK: - Functions
     
-    func deleteSession()
+    //Map service methods
+    func fetchStudentLocation() -> [StudentLocation]
+    
+    //Session methods
+    func handlePostSession(username: String, password: String)
+    func handleDeleteSession()
 }
