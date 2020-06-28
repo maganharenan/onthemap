@@ -17,7 +17,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        
+        uiView.delegate = context.coordinator
         var annotations = [MKPointAnnotation]()
         
         for location in store.state.locations {
@@ -29,6 +29,7 @@ struct MapView: UIViewRepresentable {
             annotation.title = location.firstName + " " + location.lastName
             annotation.subtitle = location.mediaURL
             
+            
             annotations.append(annotation)
         }
         
@@ -38,5 +39,28 @@ struct MapView: UIViewRepresentable {
             store.send(.reload)
         }
 
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var mapViewController: MapView
+        
+        init(_ control: MapView) {
+            self.mapViewController = control
+        }
+        
+        func mapView(_ mapView: MKMapView, viewFor
+            annotation: MKAnnotation) -> MKAnnotationView?{
+            //Custom View for Annotation
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+            annotationView.canShowCallout = true
+            //Your custom image icon
+            annotationView.image = UIImage(named: "customPin32px")
+            return annotationView
+        }
+        
     }
 }
