@@ -18,6 +18,8 @@ extension Reducer where State == AppState, Action == AppAction {
                 break
             case .loginActions(let action):
                 handleLoginActions(action, mapService: mapService)
+            case .dismissAlert:
+                mapService.dismissAlert()
             }
             
             return Reducer.sync { state in
@@ -42,6 +44,5 @@ extension Reducer where State == AppState, Action == AppAction {
         case .logOut:
             mapService.handleDeleteSession()
         }
-        
     }
 }

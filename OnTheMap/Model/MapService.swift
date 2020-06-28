@@ -24,6 +24,9 @@ protocol MapService {
     
     //MARK: - Functions
     
+    //General app methods
+    func dismissAlert()
+    
     //Map service methods
     func fetchStudentLocation() -> [StudentLocation]
     

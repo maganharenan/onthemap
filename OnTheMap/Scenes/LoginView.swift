@@ -41,15 +41,17 @@ struct LoginView: View {
                     .autocapitalization(.none)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 300)
+                    .disabled(isLoading)
                 
-                TextField("Password", text: $password)
+                SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 300)
+                    .disabled(isLoading)
                 
                 Button(action: {
                     DispatchQueue.main.async {
                         self.isLoading.toggle()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
                             self.store.send(.loginActions(.signIn(self.email, self.password)))
                         }
                     }
@@ -60,8 +62,12 @@ struct LoginView: View {
                 })
                     .padding(.top, 30)
                     .alert(isPresented: .constant(store.state.showAlert)) {
-                        Alert(title: Text("Login Failure"), message: Text("\(store.state.alertMessage)"), dismissButton: .default(Text("Ok")))
+                        Alert(title: Text("Login Failure"), message: Text("\(store.state.alertMessage)"), dismissButton: .default(Text("Ok"), action: {
+                            self.isLoading = false
+                            self.store.send(.dismissAlert)
+                        }))
                     }
+                    .disabled(isLoading)
                 
                 HStack {
                     Text("Don't have and account?")
@@ -71,6 +77,7 @@ struct LoginView: View {
                     }, label: {
                         Text("Sign Up")
                     })
+                        .disabled(isLoading)
                 }
                 .font(.system(size: 13, weight: .thin, design: .rounded))
                 

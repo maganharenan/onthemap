@@ -179,4 +179,8 @@ class MockMapService: MapService {
         }
         task.wait()
     }
+    
+    func dismissAlert() {
+        self.showAlert = false
+    }
 }
