@@ -11,6 +11,8 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     @EnvironmentObject var store: Store<AppState, AppAction>
+    @Binding var annotationsSource: [StudentLocation]
+    var newAnnotation: Bool
     
     func makeUIView(context: Context) -> MKMapView {
         MKMapView(frame: .zero)
@@ -18,9 +20,10 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.delegate = context.coordinator
+        
         var annotations = [MKPointAnnotation]()
         
-        for location in store.state.locations {
+        for location in annotationsSource {
             let coordinate = CLLocationCoordinate2D(
                 latitude: location.latitude, longitude: location.longitude)
             
@@ -35,10 +38,18 @@ struct MapView: UIViewRepresentable {
         
         uiView.addAnnotations(annotations)
         
-        if store.state.locations == [] {
-            store.send(.reload)
+        if newAnnotation {
+            let location = CLLocationCoordinate2D(latitude: annotationsSource[0].latitude,
+                                                  longitude: annotationsSource[0].longitude)
+            let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+            let region = MKCoordinateRegion(center: location, span: span)
+            uiView.setRegion(region, animated: true)
+        } else {
+            if store.state.locations == [] {
+                store.send(.reload)
+            }
         }
-
+        
     }
     
     func makeCoordinator() -> Coordinator {

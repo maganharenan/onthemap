@@ -17,7 +17,7 @@ struct ContentView: View {
             if store.state.currentScene == .mapService {
                 NavigationView {
                 TabView {
-                    MapView()
+                    MapView(annotationsSource: .constant(store.state.locations), newAnnotation: false)
                         .tabItem {
                             Image(systemName: "mappin.and.ellipse")
                             Text("Map")

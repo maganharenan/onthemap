@@ -12,12 +12,11 @@ enum Endpoints {
     static let baseURL = "https://onthemap-api.udacity.com/v1"
     
     case getStudentLocation
-    
     case postSession
     
     var stringValue: String {
         switch self {
-        case .getStudentLocation: return Endpoints.baseURL + "/StudentLocation"
+        case .getStudentLocation: return Endpoints.baseURL + "/StudentLocation?limit=100&order=-updatedAt"
         case .postSession: return Endpoints.baseURL + "/session"
         }
     }

@@ -45,5 +45,10 @@ struct ListCell: View {
 
             }
         }
+        .onTapGesture {
+            if self.studentLocation.mediaURL != "" {
+                UIApplication.shared.open(URL(string: self.studentLocation.mediaURL)!, options: [:], completionHandler: nil)
+            }
+        }
     }
 }

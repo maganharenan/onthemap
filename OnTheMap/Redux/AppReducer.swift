@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Reducer where State == AppState, Action == AppAction {
     static func appReducer() -> Reducer {
@@ -40,7 +41,7 @@ extension Reducer where State == AppState, Action == AppAction {
         case let .signIn(username, password):
             mapService.handlePostSession(username: username.lowercased(), password: password)
         case .signUp:
-            break
+            UIApplication.shared.open(URL(string: "https://auth.udacity.com/sign-up")!, options: [:], completionHandler: nil)
         case .logOut:
             mapService.handleDeleteSession()
         }

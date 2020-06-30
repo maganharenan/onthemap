@@ -98,6 +98,7 @@ class MockMapService: MapService {
             }
         }
         task.wait()
+        print("Total of \(results.count) results")
         return results
     }
     
