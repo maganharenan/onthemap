@@ -22,6 +22,11 @@ class MockMapService: MapService {
     var id: String? = ""
     var expiration: String? = ""
     
+    var firstName = ""
+    var lastName = ""
+    var nickName = ""
+    var imageURL = ""
+    
     //MARK: - Task Methods
     ///Get task
     @discardableResult func taskForGetRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, fromNewData: Bool, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
@@ -39,7 +44,7 @@ class MockMapService: MapService {
                 let responseObject = try decoder.decode(ResponseType.self, from: fromNewData ? newData : data)
                 completion(responseObject, nil)
             } catch {
-                
+                completion(nil, error)
             }
         }
         task.resume()
@@ -93,13 +98,24 @@ class MockMapService: MapService {
                 results = response.results
                 task.leave()
             } else {
-                print(error!)
                 task.leave()
             }
         }
         task.wait()
-        print("Total of \(results.count) results")
         return results
+    }
+    
+    func getPublicUserData(userId: String) {
+        taskForGetRequest(url: Endpoints.getPublicUserData(key!).url, responseType: UserResponse.self, fromNewData: true) { (response, error) in
+            if let response = response {
+                self.firstName = response.firstName ?? ""
+                self.lastName = response.lastName ?? ""
+                self.nickName = response.nickname ?? ""
+                print("first name: \(response.firstName ?? ""), last name \(response.lastName ?? ""), nickname: \(response.nickname ?? "")")
+            } else {
+                print(error!)
+            }
+        }
     }
     
     func handlePostSession(username: String, password: String) {
@@ -116,7 +132,7 @@ class MockMapService: MapService {
                 self.key        = response.account.key
                 self.id         = response.session.id
                 self.expiration = response.session.expiration
-                
+                self.getPublicUserData(userId: response.account.key)
                 self.currentScene = .mapService
                 task.leave()
             } else {

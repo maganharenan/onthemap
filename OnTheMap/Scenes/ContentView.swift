@@ -63,6 +63,9 @@ struct ContentView: View {
                     .navigationBarTitle("On the Map", displayMode: .inline)
             }
                 .navigationViewStyle(StackNavigationViewStyle())
+                .onAppear{
+                    self.store.send(.reload)
+                }
             } else {
                 LoginView()
             }

@@ -44,11 +44,12 @@ struct MapView: UIViewRepresentable {
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
             let region = MKCoordinateRegion(center: location, span: span)
             uiView.setRegion(region, animated: true)
-        } else {
-            if store.state.locations == [] {
-                store.send(.reload)
-            }
         }
+//        else {
+//            if store.state.locations == [] {
+//                store.send(.reload)
+//            }
+//        }
         
     }
     
@@ -72,6 +73,5 @@ struct MapView: UIViewRepresentable {
             annotationView.image = UIImage(named: "customPin32px")
             return annotationView
         }
-        
     }
 }

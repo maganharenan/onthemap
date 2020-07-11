@@ -61,15 +61,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        
-        if components?.scheme == "onthemap" && components?.path == "mapservice" {
-            let content = window?.rootViewController as! ContentView
-        }
-        
-        return true
-    }
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+//        
+//        if components?.scheme == "onthemap" && components?.path == "mapservice" {
+//            let content = window?.rootViewController as! ContentView
+//        }
+//        
+//        return true
+//    }
     
 }
 

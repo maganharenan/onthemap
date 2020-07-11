@@ -9,6 +9,10 @@
 import Foundation
 import MapKit
 
+struct StudentResults: Codable {
+    var results: [StudentLocation]
+}
+
 struct StudentLocation: Codable, Equatable, Hashable {
     let firstName:  String
     let lastName:   String
@@ -34,3 +38,6 @@ struct StudentLocation: Codable, Equatable, Hashable {
         case updatedAt
     }
 }
+
+
+{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}
