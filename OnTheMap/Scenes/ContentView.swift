@@ -32,7 +32,7 @@ struct ContentView: View {
                     leading:
                     Button(action: {
                         DispatchQueue.main.async {
-                            self.store.send(.loginActions(.logOut))
+                            self.store.send(.sessionActions(.logOut))
                         }
                     }, label: {
                         Image("logout")
@@ -52,11 +52,12 @@ struct ContentView: View {
                         
                         Button(action: {
                             self.showInformationPostingView.toggle()
+                            self.store.send(.parseAPIActions(.newLocation))
                         }, label: {
                             Image(systemName: "plus")
                                 .frame(width: 44, height: 44)
                         })
-                            .sheet(isPresented: $showInformationPostingView) { InformationPostingView() }
+                            .sheet(isPresented: $showInformationPostingView) { InformationPostingView(store: self.store, showInformationPostingView: self.$showInformationPostingView) }
                     }
                 )
      

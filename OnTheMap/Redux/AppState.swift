@@ -6,7 +6,7 @@
 //  Copyright © 2020 Renan Maganha. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import MapKit
 
 struct AppState {
@@ -21,4 +21,8 @@ struct AppState {
     var expiration = ""
     
     var locations = [StudentLocation]()
+    
+    var firstName = ""
+    var lastName = ""
+    var nickname = ""
 }

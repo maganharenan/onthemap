@@ -10,10 +10,13 @@ import SwiftUI
 import MapKit
 
 struct InformationPostingView: View {
+    var store: Store<AppState, AppAction>
+    @Binding var showInformationPostingView: Bool
     @State var location = ""
     @State var link = ""
     @State var newAnnotation: [StudentLocation] = []
-    @State var confirm = false
+    @State var locationWasFound = false
+    @State var showAlert = false
     
     var body: some View {
         NavigationView {
@@ -44,23 +47,27 @@ struct InformationPostingView: View {
                     .padding(.top, -10)
                 
                 Button(action: {
-                    self.test(addressString: self.location) { (response, error) in
-                        if let response = response {
-                            self.newAnnotation.append(StudentLocation(firstName: "Renan", lastName: "Maganha", longitude: response.longitude, latitude: response.latitude, mapString: "", mediaURL: "", uniqueKey: "12345", objectId: "12345", createdAt: "12345", updatedAt: "123456"))
-                            
-                            self.confirm.toggle()
-                        } else {
-                            print("Buuuhhhhhh")
+                    self.findLocation(addressString: self.location) { (response, error) in
+                        if error != nil {
+                            print(error!)
                         }
-                        
+                        if let response = response {
+                            self.newAnnotation.append(StudentLocation(firstName: self.store.state.firstName, lastName: self.store.state.lastName, longitude: response.longitude, latitude: response.latitude, mapString: self.location, mediaURL: self.link, uniqueKey: self.store.state.key, objectId: "", createdAt: "", updatedAt: ""))
+                            self.locationWasFound.toggle()
+                        } else {
+                            self.showAlert.toggle()
+                        }
                     }
                 }, label: {
                     Text("FIND LOCATION")
                         .modifier(LoginButtonModifier())
                 })
                     .padding(.top, 25)
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Error"), message: Text("Location could not be found"), dismissButton: .default(Text("Ok")))
+                }
                     
-                NavigationLink(destination: AddLocationView(annotationsSource: $newAnnotation), isActive: $confirm) {
+                NavigationLink(destination: AddLocationView(store: store, annotationSource: newAnnotation, showInformationPostingView: $showInformationPostingView), isActive: $locationWasFound) {
                     EmptyView()
                 }
                 Spacer()
@@ -69,7 +76,7 @@ struct InformationPostingView: View {
             .navigationBarTitle("Add Location", displayMode: .inline)
             .navigationBarItems(leading:
                 Button(action: {
-                    
+                    self.showInformationPostingView.toggle()
                 }, label: {
                     Text("CANCEL")
                 })
@@ -78,7 +85,7 @@ struct InformationPostingView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
-    func test(addressString: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
+    func findLocation(addressString: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
@@ -88,22 +95,32 @@ struct InformationPostingView: View {
                     completion(location.coordinate, nil)
                     return
                 }
+                completion(kCLLocationCoordinate2DInvalid, nil)
+            } else {
+                completion(nil, error)
             }
-            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
 }
 
-struct InformationPostingView_Previews: PreviewProvider {
-    static var previews: some View {
-        InformationPostingView()
-    }
-}
-
 struct AddLocationView: View {
-    @Binding var annotationsSource: [StudentLocation]
+    var store: Store<AppState, AppAction>
+    var annotationSource: [StudentLocation]
+    @Binding var showInformationPostingView: Bool
     
     var body: some View {
-        MapView(annotationsSource: .constant(annotationsSource), newAnnotation: true)
+        ZStack {
+            MapView(annotationsSource: .constant(annotationSource), newAnnotation: true)
+            
+            Button(action: {
+                self.store.send(.parseAPIActions(.postStudentLocation(self.annotationSource[0].mapString, self.annotationSource[0].latitude, self.annotationSource[0].longitude, self.annotationSource[0].mediaURL)))
+                self.showInformationPostingView.toggle()
+            }, label: {
+                Text("FINISH")
+                    .modifier(LoginButtonModifier())
+            })
+                .padding(.bottom, 35)
+                .frame(maxHeight: .infinity, alignment: .bottom)
+        }
     }
 }

@@ -52,7 +52,7 @@ struct LoginView: View {
                     DispatchQueue.main.async {
                         self.isLoading.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
-                            self.store.send(.loginActions(.signIn(self.email, self.password)))
+                            self.store.send(.sessionActions(.signIn(self.email, self.password)))
                         }
                     }
                 }, label: {
@@ -73,7 +73,7 @@ struct LoginView: View {
                     Text("Don't have and account?")
                     
                     Button(action: {
-                        self.store.send(.loginActions(.signUp))
+                        self.store.send(.sessionActions(.signUp))
                     }, label: {
                         Text("Sign Up")
                     })

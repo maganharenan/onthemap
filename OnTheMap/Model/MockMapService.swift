@@ -6,7 +6,7 @@
 //  Copyright © 2020 Renan Maganha. All rights reserved.
 //
 
-import Foundation
+import MapKit
 import SwiftUI
 
 class MockMapService: MapService {
@@ -14,7 +14,7 @@ class MockMapService: MapService {
     //Defines wich of the app scenes will be displayed to the user
     var currentScene: AppScenes = .login
     var alertMessage: String = ""
-    var showAlert: Bool = false
+    @Published var showAlert: Bool = false
     
     //Stores the user session informations
     var registered: Bool? = false
@@ -24,8 +24,7 @@ class MockMapService: MapService {
     
     var firstName = ""
     var lastName = ""
-    var nickName = ""
-    var imageURL = ""
+    var nickname = ""
     
     //MARK: - Task Methods
     ///Get task
@@ -57,8 +56,12 @@ class MockMapService: MapService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = try! JSONEncoder().encode(body)
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        if responseType == PostSessionResponse.self {
+            request.httpBody = try! JSONEncoder().encode(body)
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+        } else {
+            request.httpBody = (body as! Data)
+        }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -71,7 +74,7 @@ class MockMapService: MapService {
             
             let range = 5..<data.count
             let newData = data.subdata(in: range)
-            
+            print(String(data: data, encoding: .utf8)!)
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: fromNewData ? newData : data)
                 completion(responseObject, nil)
@@ -105,15 +108,29 @@ class MockMapService: MapService {
         return results
     }
     
+    func searchForLocationByUniqueKey() {
+        taskForGetRequest(url: Endpoints.getMyLocation(self.key!).url, responseType: [StudentLocation].self, fromNewData: false) { (response, error) in
+            if let response = response {
+                print(response)
+            } else {
+                print("2")
+            }
+        }
+    }
+    
     func getPublicUserData(userId: String) {
+        let task = DispatchGroup()
+        
+        task.enter()
         taskForGetRequest(url: Endpoints.getPublicUserData(key!).url, responseType: UserResponse.self, fromNewData: true) { (response, error) in
             if let response = response {
                 self.firstName = response.firstName ?? ""
                 self.lastName = response.lastName ?? ""
-                self.nickName = response.nickname ?? ""
-                print("first name: \(response.firstName ?? ""), last name \(response.lastName ?? ""), nickname: \(response.nickname ?? "")")
+                self.nickname = response.nickname ?? ""
+                task.leave()
             } else {
                 print(error!)
+                task.leave()
             }
         }
     }
@@ -195,6 +212,45 @@ class MockMapService: MapService {
             }
         }
         task.wait()
+    }
+    
+    func handlePostStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String) {
+        let body = "{\"uniqueKey\": \"\(self.key!)\", \"firstName\": \"\(self.firstName)\", \"lastName\": \"\(self.lastName)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(Longitude)}".data(using: .utf8)
+        print(body ?? "")
+        let task = DispatchGroup()
+        
+        task.enter()
+        taskForPostRequest(url: Endpoints.postStudentLocation.url, responseType: PostStudentLocationResponse.self, body: body, fromNewData: false) { (response, error) in
+            if let response = response {
+                print(response)
+                print("deu certo")
+                task.leave()
+            } else {
+                print(error!)
+                print("deu muito errado")
+                task.leave()
+            }
+        }
+        
+        task.wait()
+    }
+    
+    //MARK: - App Methods
+    func findLocation(addressString: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+            if error == nil {
+                if let placemark = placemarks?[0] {
+                    let location = placemark.location!
+                    print("\(location.coordinate)")
+                    completion(location.coordinate, nil)
+                    return
+                }
+                completion(kCLLocationCoordinate2DInvalid, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
     }
     
     func dismissAlert() {

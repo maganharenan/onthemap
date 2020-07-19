@@ -21,6 +21,11 @@ protocol MapService {
     var key: String? { get }
     var id: String? { get }
     var expiration: String? { get }
+
+    //Stores account information
+    var firstName: String { get }
+    var lastName: String { get }
+    var nickname: String { get }
     
     //MARK: - Functions
     
@@ -29,8 +34,11 @@ protocol MapService {
     
     //Map service methods
     func fetchStudentLocation() -> [StudentLocation]
+    func searchForLocationByUniqueKey()
     
     //Session methods
     func handlePostSession(username: String, password: String)
     func handleDeleteSession()
+    
+    func handlePostStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String)
 }

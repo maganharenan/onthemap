@@ -17,10 +17,12 @@ extension Reducer where State == AppState, Action == AppAction {
             switch action {
             case .reload:
                 break
-            case .loginActions(let action):
+            case .sessionActions(let action):
                 handleLoginActions(action, mapService: mapService)
             case .dismissAlert:
                 mapService.dismissAlert()
+            case .parseAPIActions(let action):
+                handleParseAPIActions(action, mapService: mapService)
             }
             
             return Reducer.sync { state in
@@ -32,11 +34,14 @@ extension Reducer where State == AppState, Action == AppAction {
                 state.key           = mapService.key!
                 state.id            = mapService.id!
                 state.expiration    = mapService.expiration!
+                state.firstName     = mapService.firstName
+                state.lastName      = mapService.lastName
+                state.nickname      = mapService.nickname
             }
         }
     }
     
-    private static func handleLoginActions(_ action: LoginAction, mapService: MapService) {
+    private static func handleLoginActions(_ action: SessionAction, mapService: MapService) {
         switch action {
         case let .signIn(username, password):
             mapService.handlePostSession(username: username.lowercased(), password: password)
@@ -44,6 +49,15 @@ extension Reducer where State == AppState, Action == AppAction {
             UIApplication.shared.open(URL(string: "https://auth.udacity.com/sign-up")!, options: [:], completionHandler: nil)
         case .logOut:
             mapService.handleDeleteSession()
+        }
+    }
+    
+    private static func handleParseAPIActions(_ action: ParseAPIActions, mapService: MapService) {
+        switch action {
+        case let .postStudentLocation(mapString, latitude, longitude, mediaURL):
+            mapService.handlePostStudentLocation(mapString: mapString, latitude: latitude, Longitude: longitude, mediaURL: mediaURL)
+        case .newLocation:
+            mapService.searchForLocationByUniqueKey()
         }
     }
 }

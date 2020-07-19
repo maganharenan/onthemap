@@ -7,15 +7,22 @@
 //
 
 import Foundation
+import MapKit
 
 enum AppAction {
     case reload
-    case loginActions(LoginAction)
+    case sessionActions(SessionAction)
     case dismissAlert
+    case parseAPIActions(ParseAPIActions)
 }
 
-enum LoginAction {
+enum SessionAction {
     case signIn(String, String)
     case signUp
     case logOut
+}
+
+enum ParseAPIActions {
+    case newLocation
+    case postStudentLocation(String, CLLocationDegrees, CLLocationDegrees, String)
 }

@@ -44,13 +44,7 @@ struct MapView: UIViewRepresentable {
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
             let region = MKCoordinateRegion(center: location, span: span)
             uiView.setRegion(region, animated: true)
-        }
-//        else {
-//            if store.state.locations == [] {
-//                store.send(.reload)
-//            }
-//        }
-        
+        }        
     }
     
     func makeCoordinator() -> Coordinator {
@@ -69,7 +63,7 @@ struct MapView: UIViewRepresentable {
             //Custom View for Annotation
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
             annotationView.canShowCallout = true
-            //Your custom image icon
+            //Custom image icon
             annotationView.image = UIImage(named: "customPin32px")
             return annotationView
         }
