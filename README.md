@@ -4,7 +4,7 @@
 On the map is an application that allows the user to share your location and media url with another studens.
 The app was developed using the Redux-like state container.
 
-## Requiriments
+## Requirements
 Udacity credentials
 
 ## Credits
