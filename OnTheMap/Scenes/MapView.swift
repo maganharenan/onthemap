@@ -58,14 +58,26 @@ struct MapView: UIViewRepresentable {
             self.mapViewController = control
         }
         
-        func mapView(_ mapView: MKMapView, viewFor
-            annotation: MKAnnotation) -> MKAnnotationView?{
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
             //Custom View for Annotation
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
             annotationView.canShowCallout = true
             //Custom image icon
             annotationView.image = UIImage(named: "customPin32px")
+            
+            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            
+            
             return annotationView
+        }
+        
+        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+            if control == view.rightCalloutAccessoryView {
+                let app = UIApplication.shared
+                if let toOpen = view.annotation?.subtitle! {
+                    app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+                }
+            }
         }
     }
 }
