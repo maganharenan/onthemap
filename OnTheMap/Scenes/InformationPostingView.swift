@@ -17,6 +17,7 @@ struct InformationPostingView: View {
     @State var newAnnotation: [StudentLocation] = []
     @State var locationWasFound = false
     @State var showAlert = false
+    @State var showOverwriteAlert = false
     
     var body: some View {
         NavigationView {
@@ -83,6 +84,16 @@ struct InformationPostingView: View {
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear{
+            if self.store.state.isAlreadyPosted {
+                self.showOverwriteAlert.toggle()
+            }
+        }
+        .alert(isPresented: $showOverwriteAlert) {
+            Alert(title: Text("Atention"), message: Text("You have already posted a student location. Would you like to overwrite your current location?"), primaryButton: .default(Text("Overwrite"), action: {}), secondaryButton: .cancel(Text("Cancel"), action: {
+                self.showInformationPostingView.toggle()
+            }))
+        }
     }
     
     func findLocation(addressString: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
@@ -113,8 +124,7 @@ struct AddLocationView: View {
             MapView(annotationsSource: .constant(annotationSource), newAnnotation: true)
             
             Button(action: {
-                self.store.send(.parseAPIActions(.postStudentLocation(self.annotationSource[0].mapString, self.annotationSource[0].latitude, self.annotationSource[0].longitude, self.annotationSource[0].mediaURL)))
-                self.showInformationPostingView.toggle()
+                self.handleWithPostedLocations()
             }, label: {
                 Text("FINISH")
                     .modifier(LoginButtonModifier())
@@ -122,5 +132,14 @@ struct AddLocationView: View {
                 .padding(.bottom, 35)
                 .frame(maxHeight: .infinity, alignment: .bottom)
         }
+    }
+    
+    func handleWithPostedLocations() {
+        if store.state.objectId != "" {
+            //PUT
+        } else {
+            self.store.send(.parseAPIActions(.postStudentLocation(self.annotationSource[0].mapString, self.annotationSource[0].latitude, self.annotationSource[0].longitude, self.annotationSource[0].mediaURL)))
+        }
+        self.showInformationPostingView.toggle()
     }
 }

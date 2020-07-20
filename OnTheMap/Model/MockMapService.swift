@@ -14,7 +14,7 @@ class MockMapService: MapService {
     //Defines wich of the app scenes will be displayed to the user
     var currentScene: AppScenes = .login
     var alertMessage: String = ""
-    @Published var showAlert: Bool = false
+    var showAlert: Bool = false
     
     //Stores the user session informations
     var registered: Bool? = false
@@ -25,6 +25,9 @@ class MockMapService: MapService {
     var firstName = ""
     var lastName = ""
     var nickname = ""
+    
+    var isAlreadyPosted = false
+    var objectId = ""
     
     //MARK: - Task Methods
     ///Get task
@@ -109,11 +112,12 @@ class MockMapService: MapService {
     }
     
     func searchForLocationByUniqueKey() {
-        taskForGetRequest(url: Endpoints.getMyLocation(self.key!).url, responseType: [StudentLocation].self, fromNewData: false) { (response, error) in
+        taskForGetRequest(url: Endpoints.getMyLocation(self.key!).url, responseType: StudentResults.self, fromNewData: false) { (response, error) in
             if let response = response {
-                print(response)
+                self.objectId = response.results[0].objectId
+                self.isAlreadyPosted = true
             } else {
-                print("2")
+                print(error!)
             }
         }
     }

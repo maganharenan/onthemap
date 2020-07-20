@@ -26,17 +26,19 @@ extension Reducer where State == AppState, Action == AppAction {
             }
             
             return Reducer.sync { state in
-                state.currentScene  = mapService.currentScene
-                state.alertMessage  = mapService.alertMessage
-                state.showAlert     = mapService.showAlert
-                state.locations     = mapService.fetchStudentLocation()
-                state.registered    = mapService.registered!
-                state.key           = mapService.key!
-                state.id            = mapService.id!
-                state.expiration    = mapService.expiration!
-                state.firstName     = mapService.firstName
-                state.lastName      = mapService.lastName
-                state.nickname      = mapService.nickname
+                state.currentScene      = mapService.currentScene
+                state.alertMessage      = mapService.alertMessage
+                state.showAlert         = mapService.showAlert
+                state.locations         = mapService.fetchStudentLocation()
+                state.registered        = mapService.registered!
+                state.key               = mapService.key!
+                state.id                = mapService.id!
+                state.expiration        = mapService.expiration!
+                state.firstName         = mapService.firstName
+                state.lastName          = mapService.lastName
+                state.nickname          = mapService.nickname
+                state.isAlreadyPosted   = mapService.isAlreadyPosted
+                state.objectId          = mapService.objectId
             }
         }
     }

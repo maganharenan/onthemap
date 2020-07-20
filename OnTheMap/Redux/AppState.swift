@@ -25,4 +25,7 @@ struct AppState {
     var firstName = ""
     var lastName = ""
     var nickname = ""
+    
+    var isAlreadyPosted = false
+    var objectId = ""
 }

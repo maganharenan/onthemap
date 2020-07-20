@@ -27,6 +27,9 @@ protocol MapService {
     var lastName: String { get }
     var nickname: String { get }
     
+    var isAlreadyPosted: Bool { get }
+    var objectId: String { get }
+    
     //MARK: - Functions
     
     //General app methods
