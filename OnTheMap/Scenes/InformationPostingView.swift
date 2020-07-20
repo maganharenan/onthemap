@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 import MapKit
 
 struct InformationPostingView: View {
@@ -18,81 +19,91 @@ struct InformationPostingView: View {
     @State var locationWasFound = false
     @State var showAlert = false
     @State var showOverwriteAlert = false
+    @State var isAnimating = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Image("earth")
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 120)
-                    .padding(.top, 30)
-                    .padding(.bottom, 70)
-                    .foregroundColor(Color("GlobeColor"))
-                
-                TextField("Location", text: $location)
-                    .frame(width: 300)
-                
-                Rectangle()
-                    .frame(width: 300, height: 1.2)
-                    .foregroundColor(Color(#colorLiteral(red: 0.3111993667, green: 0.6907969998, blue: 1, alpha: 1)))
-                    .padding(.top, -10)
-                
-                TextField("Link", text: $link)
-                    .frame(width: 300)
-                
-                Rectangle()
-                    .frame(width: 300, height: 1.2)
-                    .foregroundColor(Color(#colorLiteral(red: 0.3111993667, green: 0.6907969998, blue: 1, alpha: 1)))
-                    .padding(.top, -10)
-                
-                Button(action: {
-                    self.findLocation(addressString: self.location) { (response, error) in
-                        if error != nil {
-                            print(error!)
-                        }
-                        if let response = response {
-                            self.newAnnotation.append(StudentLocation(firstName: self.store.state.firstName, lastName: self.store.state.lastName, longitude: response.longitude, latitude: response.latitude, mapString: self.location, mediaURL: self.link, uniqueKey: self.store.state.key, objectId: "", createdAt: "", updatedAt: ""))
-                            self.locationWasFound.toggle()
-                        } else {
-                            self.showAlert.toggle()
-                        }
-                    }
-                }, label: {
-                    Text("FIND LOCATION")
-                        .modifier(LoginButtonModifier())
-                })
-                    .padding(.top, 25)
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Error"), message: Text("Location could not be found"), dismissButton: .default(Text("Ok")))
-                }
+        ZStack {
+            NavigationView {
+                VStack {
+                    Image("earth")
+                        .renderingMode(.template)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 120)
+                        .padding(.top, 30)
+                        .padding(.bottom, 70)
+                        .foregroundColor(Color("GlobeColor"))
                     
-                NavigationLink(destination: AddLocationView(store: store, annotationSource: newAnnotation, showInformationPostingView: $showInformationPostingView), isActive: $locationWasFound) {
-                    EmptyView()
+                    TextField("Location", text: $location)
+                        .frame(width: 300)
+                    
+                    Rectangle()
+                        .frame(width: 300, height: 1.2)
+                        .foregroundColor(Color(#colorLiteral(red: 0.3111993667, green: 0.6907969998, blue: 1, alpha: 1)))
+                        .padding(.top, -10)
+                    
+                    TextField("Link", text: $link)
+                        .frame(width: 300)
+                    
+                    Rectangle()
+                        .frame(width: 300, height: 1.2)
+                        .foregroundColor(Color(#colorLiteral(red: 0.3111993667, green: 0.6907969998, blue: 1, alpha: 1)))
+                        .padding(.top, -10)
+                    
+                    Button(action: {
+                        self.isAnimating = true
+                        self.findLocation(addressString: self.location) { (response, error) in
+                            if error != nil {
+                                print(error!)
+                            }
+                            if let response = response {
+                                self.newAnnotation.append(StudentLocation(firstName: self.store.state.firstName, lastName: self.store.state.lastName, longitude: response.longitude, latitude: response.latitude, mapString: self.location, mediaURL: self.link, uniqueKey: self.store.state.key, objectId: "", createdAt: "", updatedAt: ""))
+                                self.isAnimating = false
+                                self.locationWasFound.toggle()
+                            } else {
+                                self.isAnimating = false
+                                self.showAlert.toggle()
+                            }
+                        }
+                    }, label: {
+                        Text("FIND LOCATION")
+                            .modifier(LoginButtonModifier())
+                    })
+                        .padding(.top, 25)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Error"), message: Text("Location could not be found"), dismissButton: .default(Text("Ok")))
+                    }
+                    
+                    NavigationLink(destination: AddLocationView(store: store, annotationSource: newAnnotation, showInformationPostingView: $showInformationPostingView), isActive: $locationWasFound) {
+                        EmptyView()
+                    }
+                    Spacer()
+                    
                 }
-                Spacer()
-                
+                .navigationBarTitle("Add Location", displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {
+                        self.showInformationPostingView.toggle()
+                    }, label: {
+                        Text("CANCEL")
+                    })
+                )
             }
-            .navigationBarTitle("Add Location", displayMode: .inline)
-            .navigationBarItems(leading:
-                Button(action: {
+            .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear{
+                if self.store.state.isAlreadyPosted {
+                    self.showOverwriteAlert.toggle()
+                }
+            }
+            .alert(isPresented: $showOverwriteAlert) {
+                Alert(title: Text("Atention"), message: Text("You have already posted a student location. Would you like to overwrite your current location?"), primaryButton: .default(Text("Overwrite"), action: {}), secondaryButton: .cancel(Text("Cancel"), action: {
                     self.showInformationPostingView.toggle()
-                }, label: {
-                    Text("CANCEL")
-                })
-            )
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear{
-            if self.store.state.isAlreadyPosted {
-                self.showOverwriteAlert.toggle()
+                }))
             }
-        }
-        .alert(isPresented: $showOverwriteAlert) {
-            Alert(title: Text("Atention"), message: Text("You have already posted a student location. Would you like to overwrite your current location?"), primaryButton: .default(Text("Overwrite"), action: {}), secondaryButton: .cancel(Text("Cancel"), action: {
-                self.showInformationPostingView.toggle()
-            }))
+            
+            if isAnimating {
+                LoadingView()
+            }
         }
     }
     
