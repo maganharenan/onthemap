@@ -136,8 +136,10 @@ struct AddLocationView: View {
     
     func handleWithPostedLocations() {
         if store.state.objectId != "" {
-            //PUT
+            print("updating")
+            self.store.send(.parseAPIActions(.putStudentLocation(self.annotationSource[0].mapString, self.annotationSource[0].latitude, self.annotationSource[0].longitude, self.annotationSource[0].mediaURL)))
         } else {
+            print("creating")
             self.store.send(.parseAPIActions(.postStudentLocation(self.annotationSource[0].mapString, self.annotationSource[0].latitude, self.annotationSource[0].longitude, self.annotationSource[0].mediaURL)))
         }
         self.showInformationPostingView.toggle()

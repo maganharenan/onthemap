@@ -55,10 +55,10 @@ class MockMapService: MapService {
     }
     
     ///Post task
-    func taskForPostRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, fromNewData: Bool, completion: @escaping (ResponseType?, Error?) -> Void) {
+    func taskForPostAndPutRequest<RequestType: Encodable, ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, body: RequestType, httpMethod: String, fromNewData: Bool, completion: @escaping (ResponseType?, Error?) -> Void) {
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod
         if responseType == PostSessionResponse.self {
             request.httpBody = try! JSONEncoder().encode(body)
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -147,7 +147,7 @@ class MockMapService: MapService {
         let task = DispatchGroup()
         
         task.enter()
-        taskForPostRequest(url: Endpoints.postSession.url, responseType: PostSessionResponse.self, body: body, fromNewData: true) { (response, error) in
+        taskForPostAndPutRequest(url: Endpoints.postSession.url, responseType: PostSessionResponse.self, body: body, httpMethod: "POST", fromNewData: true) { (response, error) in
             if let response = response {
                 self.registered = response.account.registered
                 self.key        = response.account.key
@@ -220,23 +220,37 @@ class MockMapService: MapService {
     
     func handlePostStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String) {
         let body = "{\"uniqueKey\": \"\(self.key!)\", \"firstName\": \"\(self.firstName)\", \"lastName\": \"\(self.lastName)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(Longitude)}".data(using: .utf8)
-        print(body ?? "")
         let task = DispatchGroup()
         
         task.enter()
-        taskForPostRequest(url: Endpoints.postStudentLocation.url, responseType: PostStudentLocationResponse.self, body: body, fromNewData: false) { (response, error) in
+        taskForPostAndPutRequest(url: Endpoints.postStudentLocation.url, responseType: PostStudentLocationResponse.self, body: body, httpMethod: "POST", fromNewData: false) { (response, error) in
             if let response = response {
                 print(response)
-                print("deu certo")
                 task.leave()
             } else {
                 print(error!)
-                print("deu muito errado")
                 task.leave()
             }
         }
         
         task.wait()
+    }
+    
+    func handlePutStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String) {
+        let body = "{\"uniqueKey\": \"\(self.key!)\", \"firstName\": \"\(self.firstName)\", \"lastName\": \"\(self.lastName)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(Longitude)}".data(using: .utf8)
+        let task = DispatchGroup()
+        
+        task.enter()
+        taskForPostAndPutRequest(url: Endpoints.putStudentLocation(objectId).url, responseType: PutStudentLocationResponse.self, body: body, httpMethod: "PUT", fromNewData: false) { (response, error) in
+            if let response = response {
+                print(response)
+                task.leave()
+            } else {
+                print(error!)
+                task.leave()
+            }
+        }
+        
     }
     
     //MARK: - App Methods

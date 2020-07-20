@@ -60,6 +60,8 @@ extension Reducer where State == AppState, Action == AppAction {
             mapService.handlePostStudentLocation(mapString: mapString, latitude: latitude, Longitude: longitude, mediaURL: mediaURL)
         case .newLocation:
             mapService.searchForLocationByUniqueKey()
+        case let .putStudentLocation(mapString, latitude, longitude, mediaURL):
+            mapService.handlePutStudentLocation(mapString: mapString, latitude: latitude, Longitude: longitude, mediaURL: mediaURL)
         }
     }
 }

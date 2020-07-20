@@ -16,7 +16,7 @@ enum Endpoints {
     case postSession
     case getPublicUserData(String)
     case postStudentLocation
-    
+    case putStudentLocation(String)
     
     var stringValue: String {
         switch self {
@@ -25,6 +25,7 @@ enum Endpoints {
         case .postSession: return Endpoints.baseURL + "/session"
         case .getPublicUserData(let userId): return Endpoints.baseURL + "/users/" + userId
         case .postStudentLocation: return Endpoints.baseURL + "/StudentLocation"
+        case .putStudentLocation(let objectId): return Endpoints.baseURL + "/StudentLocation/\(objectId)"
         }
     }
     

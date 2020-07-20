@@ -25,4 +25,5 @@ enum SessionAction {
 enum ParseAPIActions {
     case newLocation
     case postStudentLocation(String, CLLocationDegrees, CLLocationDegrees, String)
+    case putStudentLocation(String, CLLocationDegrees, CLLocationDegrees, String)
 }

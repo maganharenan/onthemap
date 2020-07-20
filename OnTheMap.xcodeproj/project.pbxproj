@@ -39,6 +39,7 @@
 		01CD4A6524A139E4004B55F6 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A6424A139E4004B55F6 /* AppReducer.swift */; };
 		01CD4A6724A13C7A004B55F6 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A6624A13C7A004B55F6 /* MapService.swift */; };
 		01CD4A6924A13DE1004B55F6 /* MockMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CD4A6824A13DE1004B55F6 /* MockMapService.swift */; };
+		01F0577624C62BB0009D5779 /* PutStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0577524C62BB0009D5779 /* PutStudentLocationResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		01CD4A6424A139E4004B55F6 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		01CD4A6624A13C7A004B55F6 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		01CD4A6824A13DE1004B55F6 /* MockMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMapService.swift; sourceTree = "<group>"; };
+		01F0577524C62BB0009D5779 /* PutStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentLocationResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 			children = (
 				0132C58C249FE4A900CAC505 /* StudentLocation.swift */,
 				01A406F124BE42E500FEADCD /* PostStudentLocationResponse.swift */,
+				01F0577524C62BB0009D5779 /* PutStudentLocationResponse.swift */,
 			);
 			path = ParseAPI;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				01CD4A6724A13C7A004B55F6 /* MapService.swift in Sources */,
 				01A6D10624A28100001E1101 /* AppScenes.swift in Sources */,
 				0132C590249FE7F500CAC505 /* MapView.swift in Sources */,
+				01F0577624C62BB0009D5779 /* PutStudentLocationResponse.swift in Sources */,
 				013AC85824A7FCBF00648C23 /* LottieView.swift in Sources */,
 				0132C579249FE33A00CAC505 /* SceneDelegate.swift in Sources */,
 				0132C57B249FE33A00CAC505 /* ContentView.swift in Sources */,

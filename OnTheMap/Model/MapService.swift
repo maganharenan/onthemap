@@ -43,5 +43,7 @@ protocol MapService {
     func handlePostSession(username: String, password: String)
     func handleDeleteSession()
     
+    //Map methods
     func handlePostStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String)
+    func handlePutStudentLocation(mapString: String, latitude: CLLocationDegrees, Longitude: CLLocationDegrees, mediaURL: String)
 }
