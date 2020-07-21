@@ -17,7 +17,7 @@ Works normally on iPhone and iPad with iOS 13.5, in any orientation.
 * Lottie
 
 ### *Screenshots*
-<img src="/screenshots/ss13.png" width="20%" height="20%">
+<img src="/screenshots/ss01.png" width="20%" height="20%"> <img src="/screenshots/ss02.png" width="20%" height="20%"> <img src="/screenshots/ss03.png" width="20%" height="20%"> <img src="/screenshots/ss04.png" width="20%" height="20%">
 
 ### *Credits*
 The concept for this app was presented during the iOS Nanodegree programme provided by Udacity.
